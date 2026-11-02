@@ -1,4 +1,4 @@
-package com.example.miniproyecto2fpoe;
+package com.example.miniproyecto2fpoe.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

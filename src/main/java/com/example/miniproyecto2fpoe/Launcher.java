@@ -1,5 +1,6 @@
 package com.example.miniproyecto2fpoe;
 
+import com.example.miniproyecto2fpoe.view.SudokuApplication;
 import javafx.application.Application;
 
 public class Launcher {
