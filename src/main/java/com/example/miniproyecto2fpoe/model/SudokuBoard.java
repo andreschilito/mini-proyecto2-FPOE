@@ -7,7 +7,7 @@ import java.util.OptionalInt;
 /**
  * Stores the values and fixed clues of a 6x6 Sudoku board.
  */
-public class SudokuBoard {
+public class SudokuBoard implements HintProvider {
 
     public static final int SIZE = 6;
     public static final int MAX_HINTS = 3;
@@ -92,7 +92,7 @@ public class SudokuBoard {
     /**
      * Returns the value at the specified position.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
      * @return the cell value, or zero if the cell is empty
      */
@@ -104,7 +104,7 @@ public class SudokuBoard {
     /**
      * Indicates whether a cell contains a fixed clue.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
      * @return true if the cell contains a fixed clue
      */
@@ -116,12 +116,12 @@ public class SudokuBoard {
     /**
      * Sets the value of an editable cell.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
-     * @param value the number to enter, from 1 to 6
+     * @param value  the number to enter, from 1 to 6
      * @throws IndexOutOfBoundsException if the position is outside the board
-     * @throws IllegalArgumentException if the value is outside the allowed range
-     * @throws IllegalStateException if the cell contains a fixed clue
+     * @throws IllegalArgumentException  if the value is outside the allowed range
+     * @throws IllegalStateException     if the cell contains a fixed clue
      */
     public void setValue(int row, int column, int value) {
         validatePosition(row, column);
@@ -142,10 +142,10 @@ public class SudokuBoard {
     /**
      * Clears an editable cell.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
      * @throws IndexOutOfBoundsException if the position is outside the board
-     * @throws IllegalStateException if the cell contains a fixed clue
+     * @throws IllegalStateException     if the cell contains a fixed clue
      */
     public void clearCell(int row, int column) {
         validatePosition(row, column);
@@ -161,12 +161,12 @@ public class SudokuBoard {
      * Checks whether a value can be placed at the specified position.
      * The current value of the target cell is ignored.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
-     * @param value the number to check, from 1 to 6
+     * @param value  the number to check, from 1 to 6
      * @return true if no other cell in the row, column, or block has the value
      * @throws IndexOutOfBoundsException if the position is outside the board
-     * @throws IllegalArgumentException if the value is outside the allowed range
+     * @throws IllegalArgumentException  if the value is outside the allowed range
      */
     public boolean isValidMove(int row, int column, int value) {
         validatePosition(row, column);
@@ -214,7 +214,7 @@ public class SudokuBoard {
     /**
      * Indicates whether a filled cell violates the Sudoku rules.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
      * @return true if the cell conflicts with another cell
      * @throws IndexOutOfBoundsException if the position is outside the board
@@ -247,7 +247,7 @@ public class SudokuBoard {
     /**
      * Returns the allowed numbers for an empty cell.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
      * @return the candidate numbers, or an empty list if the cell is occupied
      * @throws IndexOutOfBoundsException if the position is outside the board
@@ -275,6 +275,7 @@ public class SudokuBoard {
      *
      * @return the remaining hint count
      */
+    @Override
     public int getRemainingHints() {
         return remainingHints;
     }
@@ -303,6 +304,7 @@ public class SudokuBoard {
      *
      * @return true if hints remain and more than one cell is empty
      */
+    @Override
     public boolean canRequestHint() {
         return remainingHints > 0 && getEmptyCellCount() > 1;
     }
@@ -311,11 +313,12 @@ public class SudokuBoard {
      * Suggests a number that allows the current board to be completed.
      * The original board is not modified.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
      * @return a suggested number, or an empty result if no hint is available
      * @throws IndexOutOfBoundsException if the position is outside the board
      */
+    @Override
     public OptionalInt requestHint(int row, int column) {
         validatePosition(row, column);
 
@@ -347,10 +350,11 @@ public class SudokuBoard {
 
         return OptionalInt.of(copy.getValue(row, column));
     }
+
     /**
      * Checks whether the position belongs to the board.
      *
-     * @param row the zero-based row index
+     * @param row    the zero-based row index
      * @param column the zero-based column index
      * @throws IndexOutOfBoundsException if the position is outside the board
      */
@@ -389,4 +393,5 @@ public class SudokuBoard {
 
         return board.isSolved();
     }
+
 }

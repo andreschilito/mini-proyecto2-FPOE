@@ -16,6 +16,9 @@ target/
 ### IntelliJ IDEA ###
 .idea/
 
+### test ###
+/src/test/
+
 ### Eclipse ###
 .apt_generated
 .classpath
