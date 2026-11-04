@@ -2,15 +2,26 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+
+
+<VBox alignment="CENTER" spacing="16.0"
+      xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.miniproyecto2fpoe.controller.SudokuController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
     </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label text="Sudoku"/>
+    <GridPane fx:id="boardGrid"
+              alignment="CENTER"
+              gridLinesVisible="true"/>
+    <Label fx:id="conflictMessage" wrapText="true"/>
+    <Label fx:id="hintsLabel"/>
+    <Button fx:id="hintButton" text="Ayuda" onAction="#onHintClick"/>
+    <Label fx:id="hintMessage" wrapText="true"
+           style="-fx-font-weight: bold;"/>
+    <Button text="Nueva partida" onAction="#onNewGameClick"/>
 </VBox>
